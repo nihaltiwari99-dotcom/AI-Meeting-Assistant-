@@ -37,11 +37,14 @@ if uploaded_file is not None:
 
     # Process only once
 
+
     with st.spinner("Processing meeting..."):
 
-      _, transcript_path = transcribe_video(save_path)
+            # Transcribe (don't display transcript)
+            _, transcript_path = transcribe_video(save_path)
 
-      st.session_state.rag_chain = create_rag(transcript_path)
+            # Build RAG
+            st.session_state.rag_chain = create_rag(transcript_path)
 
     st.success("Meeting processed successfully!")
 
