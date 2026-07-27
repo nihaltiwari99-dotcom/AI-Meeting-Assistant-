@@ -34,16 +34,29 @@ def create_rag(transcript_path):
         model_name="sentence-transformers/all-MiniLM-L6-v2"
     )
 
+    from langchain_chroma import Chroma
+
+    # Delete previous collection (if it exists)
+    try:
+        Chroma(
+            collection_name="meeting",
+            embedding_function=embeddings
+        ).delete_collection()
+    except:
+        pass
+
+    # Create a fresh collection
     vectorstore = Chroma.from_documents(
         documents=chunks,
-        embedding=embeddings
+        embedding=embeddings,
+        collection_name="meeting"
     )
 
     retriever = vectorstore.as_retriever(
         search_type="mmr",
         search_kwargs={
-            "k": 10,
-            "fetch_k": 20
+            "k": 4,
+            "fetch_k": 8
         }
     )
     # LLM
