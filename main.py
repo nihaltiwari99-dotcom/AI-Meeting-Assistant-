@@ -45,7 +45,7 @@ if uploaded_file is not None:
             # Build RAG
             st.session_state.rag_chain = create_rag(transcript_path)
 
-     st.success("Meeting processed successfully!")
+    st.success("Meeting processed successfully!")
 
     question = st.text_input("Ask a question about the meeting")
 
