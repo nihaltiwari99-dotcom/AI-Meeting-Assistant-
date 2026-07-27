@@ -10,8 +10,8 @@ def transcribe_video(video_path, output_folder="transcripts"):
 
     transcript = result["text"]
 
-    filename = os.path.splitext(os.path.basename(video_path))[0]
-    transcript_path = os.path.join(output_folder, f"{filename}.txt")
+    # Always overwrite the same transcript
+    transcript_path = os.path.join(output_folder, "meeting_transcript.txt")
 
     with open(transcript_path, "w", encoding="utf-8") as f:
         f.write(transcript)
