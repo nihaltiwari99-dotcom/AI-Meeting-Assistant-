@@ -36,7 +36,6 @@ if uploaded_file is not None:
     st.video(save_path)
 
     # Process only once
-    if "rag_chain" not in st.session_state:
 
         with st.spinner("Processing meeting..."):
 
