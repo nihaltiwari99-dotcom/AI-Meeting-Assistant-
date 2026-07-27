@@ -13,6 +13,8 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Developed by Nihal Tiwari**")
 st.sidebar.markdown("© 2026 All Rights Reserved")
 
+
+
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -33,19 +35,16 @@ if uploaded_file is not None:
     st.success("Video uploaded successfully!")
     st.video(save_path)
 
+    # Process only once
+
+
     with st.spinner("Processing meeting..."):
 
-        # Transcribe the uploaded video
-        transcript, transcript_path = transcribe_video(save_path)
+            # Transcribe (don't display transcript)
+            _, transcript_path = transcribe_video(save_path)
 
-        # Debug information
-        st.write("Transcript file:", transcript_path)
-
-        with open(transcript_path, "r", encoding="utf-8") as f:
-            st.text(f.read()[:500])
-
-        # Build RAG
-        st.session_state.rag_chain = create_rag(transcript_path)
+            # Build RAG
+            st.session_state.rag_chain = create_rag(transcript_path)
 
     st.success("Meeting processed successfully!")
 
@@ -56,6 +55,7 @@ if uploaded_file is not None:
 
         st.subheader("Answer")
         st.write(answer)
+
 
 # ---------------- Footer ----------------
 st.markdown("---")
